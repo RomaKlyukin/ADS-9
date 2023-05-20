@@ -4,28 +4,27 @@
 #include <iostream>
 template <typename T>
 class BST {
+ public:
+  struct Node {
+    T value;
+    int count;
+    Node* left;
+    Node* right;
+  };
 
-public:
- struct Node {
-   T value;
-   int count;
-   Node* left;
-   Node* right;
- };
+ private:
+  Node* root;
+  Node* addNode(Node*, T);
+  void printTree(Node*);
+  int searchD(Node*, T);
+  void depthTree(Node*, int, int&);
 
-private:
- Node* root;
- Node* addNode(Node*, T);
- void printTree(Node*);
- int searchD(Node*, T);
- void depthTree(Node*, int, int&);
-
-public:
- BST();
- void add(T);
- void print();
- int search(T);
- int depth();
+ public:
+  BST();
+  void add(T);
+  void print();
+  int search(T);
+  int depth();
 };
 template <typename T>
 BST<T> :: BST():root(nullptr) {}
@@ -66,7 +65,7 @@ template <typename T>
 int BST<T> :: searchD(Node *root, T value) {
   if (root == nullptr) {
     return 0;
-  } else if(root->value == value) {
+  } else if (root->value == value) {
     return root->count;
   } else if (value <= root->value) {
     if (root->left != nullptr) {
@@ -91,9 +90,9 @@ void BST<T> :: depthTree(Node* root, int lev, int& dep) {
   if (root == nullptr)
     return;
   if (lev>dep)
-    dep=lev;
-  depthTree(root->left, lev+1, dep);
-  depthTree(root->right, lev+1, dep);
+    dep = lev;
+  depthTree(root->left, lev + 1, dep);
+  depthTree(root->right, lev + 1, dep);
 }
 template <typename T>
 int BST<T> :: depth() {

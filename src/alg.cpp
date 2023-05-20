@@ -3,9 +3,9 @@
 #include  <fstream>
 #include  <locale>
 #include  <cstdlib>
-#include  "bst.h"
 #include <cctype>
 #include <string>
+#include  "bst.h"
 BST<std::string> makeTree(const char* filename) {
   BST<std::string> A;
   std::ifstream file(filename);
@@ -19,7 +19,7 @@ BST<std::string> makeTree(const char* filename) {
     if ((ch > 96 && ch < 123)) {
       slovo += ch;
     } else {
-      if (slovo!="")
+      if (slovo != "")
         A.add(slovo);
       slovo = "";
     }

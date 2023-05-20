@@ -17,7 +17,7 @@ class BST {
   Node* addNode(Node*, T);
   void printTree(Node*);
   int searchD(Node*, T);
-  void depthTree(Node*, int, int&);
+  void depthTree(Node*, int, int*);
 
  public:
   BST();
@@ -86,18 +86,18 @@ int BST<T> :: search(T value) {
   return searchD(root, value);
 }
 template <typename T>
-void BST<T> :: depthTree(Node* root, int lev, int& dep) {
+void BST<T> :: depthTree(Node* root, int lev, int* dep) {
   if (root == nullptr)
     return;
-  if (lev>dep)
-    dep = lev;
+  if (lev > *(dep))
+    *(dep) = lev;
   depthTree(root->left, lev + 1, dep);
   depthTree(root->right, lev + 1, dep);
 }
 template <typename T>
 int BST<T> :: depth() {
-  int dep=0;
-  depthTree(root, -1, dep);
+  int dep = 0;
+  depthTree(root, -1, &dep);
   return dep;
 }
 #endif  // INCLUDE_BST_H_

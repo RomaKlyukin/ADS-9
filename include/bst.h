@@ -16,13 +16,15 @@ private:
  Node* root;
  Node* addNode(Node*, T);
  void printTree(Node*);
+ int searchD(Node*, T);
+ void depthTree(Node*, int, int&);
 
 public:
  BST();
  void add(T);
  void print();
- int find(Node*, T);
- void findD(T, int&);
+ int search(T);
+ int depth();
 };
 template <typename T>
 BST<T> :: BST():root(nullptr) {}
@@ -60,27 +62,42 @@ void BST<T> :: print() {
   printTree(root);
 }
 template <typename T>
-int BST<T> :: find(Node *root, T value) {
+int BST<T> :: searchD(Node *root, T value) {
   if (root == nullptr) {
     return 0;
   } else if(root->value == value) {
     return root->count;
   } else if (value <= root->value) {
     if (root->left != nullptr) {
-      return find(root->left, value);
+      return searchD(root->left, value);
     } else {
       return 0;
     }
   } else {
     if (root->right) {
-      return find(root->right, value);
+      return searchD(root->right, value);
     } else {
       return 0;
     }
   }
 }
 template <typename T>
-void BST<T> :: findD(T value, int& t) {
-  t = find(root, value);
+int BST<T> :: search(T value) {
+  return searchD(root, value);
+}
+template <typename T>
+void BST<T> :: depthTree(Node* root, int lev, int& dep) {
+  if (root == nullptr)
+    return;
+  if (lev>dep)
+    dep=lev;
+  depthTree(root->left, lev+1, dep);
+  depthTree(root->right, lev+1, dep);
+}
+template <typename T>
+int BST<T> :: depth() {
+  int dep=0;
+  depthTree(root, -1, dep);
+  return dep;
 }
 #endif  // INCLUDE_BST_H_
